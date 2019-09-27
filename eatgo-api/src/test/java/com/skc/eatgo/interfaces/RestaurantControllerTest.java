@@ -1,5 +1,7 @@
 package com.skc.eatgo.interfaces;
 
+import com.skc.eatgo.domain.MenuItemRepository;
+import com.skc.eatgo.domain.MenuItemRepositoryImpl;
 import com.skc.eatgo.domain.RestaurantRepository;
 import com.skc.eatgo.domain.RestaurantRepositoryImpl;
 import org.junit.Test;
@@ -26,6 +28,9 @@ public class RestaurantControllerTest {
     @SpyBean(RestaurantRepositoryImpl.class)
     private RestaurantRepository restaurantRepository;
 
+    @SpyBean(MenuItemRepositoryImpl.class)
+    private MenuItemRepository menuItemRepository;
+
     @Test
     public void list() throws Exception {
         mvc.perform(get("/restaurants"))
@@ -36,6 +41,9 @@ public class RestaurantControllerTest {
                 ))
                 .andExpect(content().string(
                         containsString("\"name\":\"Bob zip\"")
+                ))
+                .andExpect(content().string(
+                        containsString("Kimchi")
                 ));
     }
 
@@ -48,6 +56,9 @@ public class RestaurantControllerTest {
                 ))
                 .andExpect(content().string(
                         containsString("\"name\":\"Bob zip\"")
+                ))
+                .andExpect(content().string(
+                        containsString("Kimchi")
                 ));
 
         mvc.perform(get("/restaurants/2020"))
