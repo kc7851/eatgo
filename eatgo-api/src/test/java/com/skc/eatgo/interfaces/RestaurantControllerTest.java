@@ -1,5 +1,6 @@
 package com.skc.eatgo.interfaces;
 
+import com.skc.eatgo.application.RestaurantService;
 import com.skc.eatgo.domain.MenuItemRepository;
 import com.skc.eatgo.domain.MenuItemRepositoryImpl;
 import com.skc.eatgo.domain.RestaurantRepository;
@@ -23,7 +24,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class RestaurantControllerTest {
 
     @Autowired
-    MockMvc mvc;
+    private MockMvc mvc;
+
+    @SpyBean(RestaurantService.class)
+    private RestaurantService restaurantService;
 
     @SpyBean(RestaurantRepositoryImpl.class)
     private RestaurantRepository restaurantRepository;
@@ -41,9 +45,6 @@ public class RestaurantControllerTest {
                 ))
                 .andExpect(content().string(
                         containsString("\"name\":\"Bob zip\"")
-                ))
-                .andExpect(content().string(
-                        containsString("Kimchi")
                 ));
     }
 

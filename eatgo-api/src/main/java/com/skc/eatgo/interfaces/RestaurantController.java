@@ -1,5 +1,6 @@
 package com.skc.eatgo.interfaces;
 
+import com.skc.eatgo.application.RestaurantService;
 import com.skc.eatgo.domain.MenuItem;
 import com.skc.eatgo.domain.MenuItemRepository;
 import com.skc.eatgo.domain.Restaurant;
@@ -15,24 +16,22 @@ import java.util.List;
 public class RestaurantController {
 
     @Autowired
-    private RestaurantRepository restaurantRepository;
-
-    @Autowired
-    private MenuItemRepository menuItemRepository;
+    private RestaurantService restaurantService;
 
     @GetMapping("/restaurants")
     public List<Restaurant> list() {
-        List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<Restaurant> restaurants = restaurantService.getRestaurants();
 
         return restaurants;
     }
 
     @GetMapping("/restaurants/{id}")
     public Restaurant detatil(@PathVariable("id") Long id) {
-        Restaurant restaurant = restaurantRepository.findById(id);
+        Restaurant restaurant = restaurantService.getRestaurant(id);
 
-        List<MenuItem> menuItems = menuItemRepository.findAllByRestaurantId(id);
-        restaurant.setMenuItems(menuItems);
+//        Restaurant restaurant = restaurantRepository.findById(id);
+//
+
 
         return restaurant;
     }
