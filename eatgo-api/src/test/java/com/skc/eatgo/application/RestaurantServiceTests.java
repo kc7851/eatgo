@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
-public class RestaurantServiceTest {
+public class RestaurantServiceTests {
 
     private RestaurantService restaurantService;
 
@@ -49,8 +49,6 @@ public class RestaurantServiceTest {
         given(restaurantRepository.findAll()).willReturn(restaurants);
 
         given(restaurantRepository.findById(1004L)).willReturn(Optional.of(restaurant));
-
-
     }
 
     private void mockMenuItemRepository() {
