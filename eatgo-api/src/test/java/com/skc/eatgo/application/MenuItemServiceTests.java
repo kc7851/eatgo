@@ -35,11 +35,13 @@ public class MenuItemServiceTests {
         List<MenuItem> menuItems = new ArrayList<>();
 
         menuItems.add(MenuItem.builder().name("Kimchi").build());
-        menuItems.add(MenuItem.builder().name("KukBob").build());
+        menuItems.add(MenuItem.builder().id(12L).name("KukBob").build());
+        menuItems.add(MenuItem.builder().id(1004L).destroy(true).build());
 
         menuItemService.bulkUpdate(1L, menuItems);
 
         verify(menuItemRepository, times(2)).save(any());
+        verify(menuItemRepository, times(1)).deleteById(1004L);
     }
 
 }
