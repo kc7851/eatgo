@@ -1,22 +1,18 @@
 package com.skc.eatgo.interfaces;
 
 import com.skc.eatgo.application.RestaurantService;
-import com.skc.eatgo.domain.MenuItem;
 import com.skc.eatgo.domain.Restaurant;
 import com.skc.eatgo.domain.RestaurantNotFoundException;
-import com.skc.eatgo.domain.Review;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.StringContains.containsString;
@@ -66,16 +62,6 @@ public class RestaurantControllerTest {
                 .name("Bob zip")
                 .address("Seoul")
                 .build();
-        MenuItem menuItem = MenuItem.builder()
-                .name("Kimchi")
-                .build();
-        restaurant.setMenuItems(Arrays.asList(menuItem));
-        Review review = Review.builder()
-                .name("skc")
-                .score(5)
-                .description("Great!")
-                .build();
-        restaurant.setReviews(Arrays.asList(review));
 
         given(restaurantService.getRestaurant(1004L)).willReturn(restaurant);
 
@@ -86,12 +72,6 @@ public class RestaurantControllerTest {
                 ))
                 .andExpect(content().string(
                         containsString("\"name\":\"Bob zip\"")
-                ))
-                .andExpect(content().string(
-                        containsString("Kimchi")
-                ))
-                .andExpect(content().string(
-                        containsString("Great!")
                 ));
     }
 
