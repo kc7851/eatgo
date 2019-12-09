@@ -1,14 +1,8 @@
 [
   {
-    "id": 2,
-    "name": "Kim Chi"
+    "name": ""
   },
   {
-    "id": 3,
-    "name": "Kuk Bob"
-  },
-  {
-    "id": 3,
-    "destroy": true
+    "name": "Bread"
   }
 ]

@@ -10,10 +10,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.core.StringContains.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -25,6 +28,16 @@ public class MenuItemControllerTests {
 
     @MockBean
     private MenuItemService menuItemService;
+
+    @Test
+    public void list() throws Exception {
+        mvc.perform(get("/restaurants/1/menuitems"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("[]")))
+        ;
+
+        verify(menuItemService).getMenuItems(eq(1L));
+    }
 
     @Test
     public void bulkUpdate() throws Exception {
