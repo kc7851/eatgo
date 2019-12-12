@@ -1,7 +1,8 @@
-package com.skc.eatgo.interfaces;
+package com.skc.eatgo.eatgo.interfaces;
 
 import com.skc.eatgo.application.RegionService;
 import com.skc.eatgo.domain.Region;
+import com.skc.eatgo.interfaces.RegionController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(RegionController.class)
@@ -46,18 +46,4 @@ public class RegionControllerTests {
                 .andExpect(content().string(containsString("Seoul")));
     }
 
-    @Test
-    public void create() throws Exception {
-        Region region = Region.builder().name("Seoul").build();
-
-        given(regionService.addRegion("Seoul")).willReturn(region);
-
-        mvc.perform(post("/regions")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"Seoul\"}"))
-                .andExpect(status().isCreated())
-                .andExpect(content().string("{}"));
-
-        verify(regionService).addRegion(any());
-    }
 }
