@@ -1,8 +1,7 @@
-package com.skc.eatgo.eatgo.interfaces;
+package com.skc.eatgo.interfaces;
 
-import com.skc.eatgo.application.RegionService;
-import com.skc.eatgo.domain.Region;
-import com.skc.eatgo.interfaces.RegionController;
+import com.skc.eatgo.application.CategoryService;
+import com.skc.eatgo.domain.Category;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,25 +24,39 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(RegionController.class)
-public class RegionControllerTests {
+@WebMvcTest(CategoryController.class)
+public class CategoryControllerTests {
 
     @Autowired
     MockMvc mvc;
 
     @MockBean
-    private RegionService regionService;
+    private CategoryService categoryService;
 
     @Test
     public void list() throws Exception {
-        List<Region> regions = new ArrayList<>();
-        regions.add(Region.builder().name("Seoul").build());
+        List<Category> categories = new ArrayList<>();
+        categories.add(Category.builder().name("Korean Food").build());
 
-        given(regionService.getRegions()).willReturn(regions);
+        given(categoryService.getCategories()).willReturn(categories);
 
-        mvc.perform(get("/regions"))
+        mvc.perform(get("/categories"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Seoul")));
+                .andExpect(content().string(containsString("Korean Food")));
     }
 
+    @Test
+    public void create() throws Exception {
+        Category category = Category.builder().name("Korean Food").build();
+
+        given(categoryService.addCategory("Korean Food")).willReturn(category);
+
+        mvc.perform(post("/categories")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"Korean Food\"}"))
+                .andExpect(status().isCreated())
+                .andExpect(content().string("{}"));
+
+        verify(categoryService).addCategory(any());
+    }
 }

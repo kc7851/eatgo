@@ -1,4 +1,4 @@
-package com.skc.eatgo.eatgo;
+package com.skc.eatgo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.skc.eatgo.eatgo.interfaces;
+package com.skc.eatgo.interfaces;
 
 import com.skc.eatgo.application.ReviewService;
 import com.skc.eatgo.domain.Review;

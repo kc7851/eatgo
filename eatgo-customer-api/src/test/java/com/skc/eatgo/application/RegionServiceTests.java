@@ -1,4 +1,4 @@
-package com.skc.eatgo.eatgo.application;
+package com.skc.eatgo.application;
 
 import com.skc.eatgo.application.RegionService;
 import com.skc.eatgo.domain.Region;

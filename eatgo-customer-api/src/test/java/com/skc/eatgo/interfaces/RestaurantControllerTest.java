@@ -1,4 +1,4 @@
-package com.skc.eatgo.eatgo.interfaces;
+package com.skc.eatgo.interfaces;
 
 import com.skc.eatgo.application.RestaurantService;
 import com.skc.eatgo.domain.MenuItem;

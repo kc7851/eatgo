@@ -18,7 +18,7 @@ public class RegionController {
     @Autowired
     private RegionService regionService;
 
-    @GetMapping
+    @GetMapping("/regions")
     public List<Region> list() {
         List<Region> regions = regionService.getRegions();
 
