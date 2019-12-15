@@ -38,6 +38,7 @@ public class RestaurantServiceTests {
         List<Restaurant> restaurants = new ArrayList<>();
         Restaurant restaurant = Restaurant.builder()
                 .id(1004L)
+                .categoryId(1L)
                 .name("Bob zip")
                 .address("Seoul")
                 .build();
@@ -80,6 +81,7 @@ public class RestaurantServiceTests {
 
         Restaurant restaurant = Restaurant.builder()
                 .name("BeRyong")
+                .categoryId(1L)
                 .address("Busan")
                 .build();
 
@@ -92,6 +94,7 @@ public class RestaurantServiceTests {
     public void updateRestaurant() {
         Restaurant restaurant = Restaurant.builder()
                 .id(1004L)
+                .categoryId(1L)
                 .name("Bobzip")
                 .address("Seoul")
                 .build();
