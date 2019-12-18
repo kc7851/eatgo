@@ -2,9 +2,11 @@ package com.skc.eatgo.application;
 
 import com.skc.eatgo.domain.CategoryRepository;
 import com.skc.eatgo.domain.User;
+import com.skc.eatgo.domain.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,9 @@ public class UserServiceTests {
 
     @Before
     public void serup() {
-        userService = new UserService();
+        MockitoAnnotations.initMocks(this);
+
+        userService = new UserService(userRepository);
     }
 
     @Test
