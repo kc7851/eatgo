@@ -27,6 +27,7 @@ public class User {
     @NotEmpty
     private String name;
 
+    @NotEmpty
     private String password;
 
     @Setter
