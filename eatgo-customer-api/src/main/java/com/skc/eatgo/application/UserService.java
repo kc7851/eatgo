@@ -41,4 +41,8 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    public void authenticate(String email, String password) {
+        //TODO: 나중에 구현 해야 함.
+    }
 }
