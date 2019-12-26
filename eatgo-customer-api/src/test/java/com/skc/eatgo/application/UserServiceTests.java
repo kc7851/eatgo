@@ -78,6 +78,8 @@ public class UserServiceTests {
 
         given(userRepository.findByEmail(email)).willReturn(Optional.of(mockUser));
 
+        given(passwordEncoder.matches(any(), any())).willReturn(false);
+
         userService.authenticate(email, password);
     }
 
