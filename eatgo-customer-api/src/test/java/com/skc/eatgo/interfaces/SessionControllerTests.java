@@ -4,6 +4,7 @@ import com.skc.eatgo.application.EmailNotExistedException;
 import com.skc.eatgo.application.PasswordWrongException;
 import com.skc.eatgo.application.UserService;
 import com.skc.eatgo.domain.User;
+import com.skc.eatgo.utils.JwtUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class SessionControllerTests {
     MockMvc mvc;
 
     @MockBean
+    private JwtUtil jwtUtil;
+
+    @MockBean
     private UserService userService;
 
     @Test
@@ -43,13 +47,16 @@ public class SessionControllerTests {
 
         given(userService.authenticate(email, password)).willReturn(mockUser);
 
+        given(jwtUtil.createToken(id, name))
+                .willReturn("header.payload.signature");
+
         mvc.perform(post("/session")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"email\":\"tester@example.com\", \"password\":\"test\"}"))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("location", "/session"))
-                .andExpect(content().string(containsString("{\"accessToken\":\"")))
-                .andExpect(content().string(containsString(".")));
+                .andExpect(content().string(containsString(
+                        "{\"accessToken\":\"header.payload.signature\"}")));
 
         verify(userService).authenticate(eq(email), eq(password));
     }
