@@ -33,8 +33,6 @@ public class SessionController {
 
         String accessToken = jwtUtil.createToken(user.getId(), user.getName());
 
-//        String accessToken = jwtUtil.createToken(1004L, "John");
-
         String url = "/session";
         return ResponseEntity.created(new URI(url)).body(
                 SessionResponseDto.builder()

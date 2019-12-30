@@ -2,8 +2,10 @@ package com.skc.eatgo.interfaces;
 
 import com.skc.eatgo.application.ReviewService;
 import com.skc.eatgo.domain.Review;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,10 +23,18 @@ public class ReviewController {
 
     @PostMapping("/restaurants/{restaurantId}/reviews")
     public ResponseEntity<?> create(
+            Authentication authentication,
             @Valid @RequestBody Review resource,
             @PathVariable("restaurantId") Long restaurantId
     ) throws URISyntaxException {
-        Review review = reviewService.addReview(restaurantId, resource);
+        Claims claims = (Claims) authentication.getPrincipal();
+
+        String name = claims.get("name", String.class);
+        Integer score = resource.getScore();
+        String description = resource.getDescription();
+
+        Review review = reviewService.addReview(
+                restaurantId, name, score, description);
 
         String url = "/restaurants/" + restaurantId +
                 "/reviews/" + review.getId();
