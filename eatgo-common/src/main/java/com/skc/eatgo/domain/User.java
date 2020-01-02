@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class User {
 
+
     @Id
     @GeneratedValue
     private Long id;
@@ -35,6 +36,8 @@ public class User {
     @NotNull
     private Long level;
 
+    private Long restaurantId;
+
     public boolean isAdmin() {
         return level >= 100;
     }
@@ -47,4 +50,12 @@ public class User {
         level = 0L;
     }
 
+    public void setRestaurantId(Long restaurantId) {
+        level = 50L;
+        this.restaurantId = restaurantId;
+    }
+
+    public Boolean isRestaurantOwner() {
+        return level == 50L;
+    }
 }

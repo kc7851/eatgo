@@ -3,7 +3,6 @@ package com.skc.eatgo.utils;
 import io.jsonwebtoken.Claims;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.annotation.Bean;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringContains.containsString;
@@ -22,7 +21,7 @@ public class JwtUtilTests {
 
     @Test
     public void createToken() {
-        String token = jwtUtil.createToken(1004L, "John");
+        String token = jwtUtil.createToken(1004L, "John", null);
 
         assertThat(token, containsString("."));
     }
