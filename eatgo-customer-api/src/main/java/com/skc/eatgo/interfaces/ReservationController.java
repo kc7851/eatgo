@@ -26,7 +26,7 @@ public class ReservationController {
             Authentication authentication,
             @PathVariable("restaurantId") Long restaurantId,
             @Valid @RequestBody Reservation resource
-            ) throws URISyntaxException {
+    ) throws URISyntaxException {
         Claims claims = (Claims) authentication.getPrincipal();
 
         Long userId = claims.get("userId", Long.class);
@@ -35,11 +35,12 @@ public class ReservationController {
         String time = resource.getTime();
         Integer partySize = resource.getPartySize();
 
-        reservationService.addReservation(
+        Reservation reservation = reservationService.addReservation(
                 restaurantId, userId, name, date, time, partySize
         );
 
-        String url = "/restaurants/"+restaurantId+"/reservations/1";
+        String url = "/restaurants/" + restaurantId +
+                "/reservations/" + reservation.getId();
         return ResponseEntity.created(new URI(url)).body("{}");
     }
 
